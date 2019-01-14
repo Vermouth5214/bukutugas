@@ -190,7 +190,7 @@
 								{{
 								Form::select(
 									'gender',
-									['male' => 'Male', 'female' => 'Female', 'other' => 'Other'],
+									['male' => 'Male', 'female' => 'Female'],
 									$gender,
 									array(
 										'class' => 'form-control',

@@ -67,8 +67,6 @@ class UserController extends Controller {
 
 		if($cekusername > 0){
 			$validator->getMessageBag()->add('username', '*) Duplicate Username');
-		}else if ($cekemail >0){
-			$validator->getMessageBag()->add('email', '*) Duplicate Email');
 		}else{
 			$user = new User();
 			$user->username = $username;
@@ -141,8 +139,6 @@ class UserController extends Controller {
 
 		if($cekusername > 0){
 			$validator->getMessageBag()->add('username', '*) Duplicate Username');
-		}else if ($cekemail >0){
-			$validator->getMessageBag()->add('email', '*) Duplicate Email');
 		}else{
 			$user = User::find($id);
 			$user->username = $username;
