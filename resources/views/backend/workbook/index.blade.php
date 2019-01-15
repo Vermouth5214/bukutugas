@@ -20,7 +20,6 @@
 		</div>
 		<div class="title_right">
 			<div class="col-md-4 col-sm-4 col-xs-8 form-group pull-right top_search">
-                @include('backend.elements.create_button',array('url' => '/backend/users-level/create'))
                 <a href="<?=url('/backend/workbook/create');?>" class="btn-index btn btn-primary btn-block" title="Add"><i class="fa fa-plus"></i>&nbsp; Add</a>
 			</div>
 		</div>
@@ -71,8 +70,10 @@
 							<tr>
 								<th>Tanggal</th>
 								<th>Jam Mulai</th>
-								<th>Jam Selesai</th>
-								<th>Keterangan</th>
+                                <th>Jam Selesai</th>
+                                <th>Diminta Oleh</th>
+                                <th>Keterangan</th>
+                                <th>Actions</th>
 							</tr>
 						</thead>
 					</table>
@@ -106,7 +107,9 @@
 				{data: 'tanggal', name: 'tanggal'},
 				{data: 'awal', name: 'awal'},
                 {data: 'akhir', name: 'akhir'},
+                {data: 'requester', name: 'requester'},
                 {data: 'keterangan', name: 'keterangan'},
+                {data: 'action', name: 'action', orderable: false, searchable: false}
 			],
 			responsive: true
 		});

@@ -107,7 +107,7 @@ class MediaLibraryController extends Controller {
     }
 	
 	public function datatable() {
-		$medialibrary = MediaLibrary::where('id','>',0);
+		$medialibrary = MediaLibrary::where('id','>',0)->where('user_created',Session::get('userinfo')['user_id']);
 	
         return Datatables::of($medialibrary)
             ->addColumn('checkbox', function ($medialibrary) {

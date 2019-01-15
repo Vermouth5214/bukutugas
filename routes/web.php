@@ -37,6 +37,19 @@ Route::group(array('prefix' => 'backend','middleware'=> ['token_user']), functio
     Route::get('/workbook/datatable','Backend\WorkbookController@datatable');	
     Route::resource('workbook', 'Backend\WorkbookController');
 
+    Route::get('/notes/datatable','Backend\NotesController@datatable');	
+    Route::resource('notes', 'Backend\NotesController');
+
+	Route::get('/media-library/upload','Backend\MediaLibraryController@upload');
+	Route::post('/media-library/upload','Backend\MediaLibraryController@upload');	
+    Route::delete('/media-library/{id}','Backend\MediaLibraryController@destroy');
+    Route::post('/media-library','Backend\MediaLibraryController@deleteAll');
+
+    Route::get('/media-library/datatable/','Backend\MediaLibraryController@datatable');
+	Route::get('/media-library','Backend\MediaLibraryController@index');
+	Route::get('/media-library/popup-media/{from}/{id_count}','Backend\MediaLibraryController@popup_media');
+    Route::get('/media-library/popup-media-gallery/','Backend\MediaLibraryController@popup_media_gallery');
+    Route::get('/media-library/popup-media-editor/{id_count}','Backend\MediaLibraryController@popup_media_editor');
     
 });
 
@@ -56,12 +69,6 @@ Route::group(array('prefix' => 'backend','middleware'=> ['token_admin']), functi
     Route::delete('/users-user/{id}','Backend\UserController@destroy');
     Route::post('/users-user/delete','Backend\UserController@deleteAll');
 
-	Route::get('/media-library/upload','Backend\MediaLibraryController@upload');
-	Route::post('/media-library/upload','Backend\MediaLibraryController@upload');	
-    Route::delete('/media-library/{id}','Backend\MediaLibraryController@destroy');
-    Route::post('/media-library','Backend\MediaLibraryController@deleteAll');
-
-
 	Route::get('/users-level/datatable','Backend\UserLevelController@datatable');	
 	Route::get('/users-level','Backend\UserLevelController@index');
 	Route::get('/users-level/{id}','Backend\UserLevelController@show');
@@ -70,12 +77,6 @@ Route::group(array('prefix' => 'backend','middleware'=> ['token_admin']), functi
 	Route::get('/users-user','Backend\UserController@index');
 	Route::get('/users-user/{id}','Backend\UserController@show');
     Route::get('/user/export/{type}','ExcelController@export_user');
-
-	Route::get('/media-library/datatable/','Backend\MediaLibraryController@datatable');
-	Route::get('/media-library','Backend\MediaLibraryController@index');
-	Route::get('/media-library/popup-media/{from}/{id_count}','Backend\MediaLibraryController@popup_media');
-    Route::get('/media-library/popup-media-gallery/','Backend\MediaLibraryController@popup_media_gallery');
-    Route::get('/media-library/popup-media-editor/{id_count}','Backend\MediaLibraryController@popup_media_editor');
 	
 	Route::get('/access-control','Backend\AccessControlController@index');
 	Route::post('/access-control','Backend\AccessControlController@update');

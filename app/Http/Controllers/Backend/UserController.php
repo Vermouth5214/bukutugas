@@ -154,7 +154,7 @@ class UserController extends Controller {
             $user->user_level_id = $user_level_id;
             $user->address = $request->address;
 			$user->active = $active;
-			// $user->avatar_id = $request->avatar_id;
+			$user->avatar_id = $request->avatar_id;
 			$user->user_modified = Session::get('userinfo')['user_id'];
 			
 			if($user->save()){

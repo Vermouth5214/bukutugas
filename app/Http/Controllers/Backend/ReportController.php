@@ -33,6 +33,7 @@ class ReportController extends Controller {
             $data_workbook = DB::select("SELECT * FROM (
                                             SELECT a.tanggal, a.awal, a.akhir, a.keterangan, a.user_modified, a.requester
                                             FROM workbook a
+                                            WHERE a.active = 1
                                             union 
                                             SELECT a.tanggal as tanggal, b.istirahat_awal as awal, b.istirahat_akhir as akhir, 'Jam Istirahat' as keterangan, a.user_modified, '' as requester
                                             FROM 

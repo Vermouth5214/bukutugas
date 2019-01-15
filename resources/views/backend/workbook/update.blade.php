@@ -5,7 +5,11 @@
 	$breadcrumb[1]['title'] = 'Workbook';
 	$breadcrumb[1]['url'] = url('backend/workbook');	
 	$breadcrumb[2]['title'] = 'Add';
-	$breadcrumb[2]['url'] = url('backend/workbook/create');
+    $breadcrumb[2]['url'] = url('backend/workbook/create');
+	if (isset($data)){
+		$breadcrumb[2]['title'] = 'Edit';
+		$breadcrumb[2]['url'] = url('backend/workbook/'.$data[0]->id.'/edit');
+	}
 ?>
 
 <!-- LAYOUT -->
@@ -14,7 +18,10 @@
 <!-- TITLE -->
 @section('title')
 	<?php
-		$mode = "Create";
+        $mode = "Create";
+		if (isset($data)){
+			$mode = "Edit";
+		}
 	?>
     Workbook - <?=$mode;?>
 @endsection
@@ -24,11 +31,25 @@
     <?php
         $hari = ['Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu'];
         $bulan = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
-		$tanggal = $hari[date('N')-1].', '.date('d').' '.$bulan[date('n')-1].' '.date('Y');
+        $tanggal = $hari[date('N')-1].', '.date('d').' '.$bulan[date('n')-1].' '.date('Y');
+        $awal = date('H:i');
+        $akhir = date('H:i');
+        $requester = '';
+        $keterangan = '';
 		$active = 1;
 		$method = "POST";
 		$mode = "Create";
-		$url = "backend/workbook/";
+        $url = "backend/workbook/";
+		if (isset($data)){
+            $awal = date('H:i',strtotime($data[0]->awal));
+            $akhir = date('H:i',strtotime($data[0]->akhir));
+            $requester = $data[0]->requester;
+            $keterangan = $data[0]->keterangan;
+			$method = "PUT";
+			$mode = "Edit";
+			$url = "backend/workbook/".$data[0]->id;
+		}
+        
 	?>
 	<div class="page-title">
 		<div class="title_left">
@@ -61,7 +82,7 @@
 							<label class="control-label col-sm-3 col-xs-12">Jam Mulai</label>
 							<div class="col-sm-2 col-xs-12">
                                 <div class='input-group date' id='JamMulai'>
-                                    <input type='text' class="form-control" name='awal' required />
+                                    <input type='text' class="form-control" name='awal' required value='<?=$awal;?>' />
                                     <span class="input-group-addon">
                                        <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -72,7 +93,7 @@
 							<label class="control-label col-sm-3 col-xs-12">Jam Selesai</label>
 							<div class="col-sm-2 col-xs-12">
                                 <div class='input-group date' id='JamSelesai'>
-                                    <input type='text' class="form-control" name='akhir' required />
+                                    <input type='text' class="form-control" name='akhir' required value='<?=$akhir;?>' />
                                     <span class="input-group-addon">
                                        <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -82,13 +103,13 @@
 						<div class="form-group">
 							<label class="control-label col-sm-3 col-xs-12">Diminta oleh</label>
 							<div class="col-sm-4 col-xs-12">
-                                <input type='text' class="form-control" name='requester' required />
+                                <input type='text' class="form-control" name='requester' required value='<?=$requester;?>' />
 							</div>
                         </div>
 						<div class="form-group">
 							<label class="control-label col-sm-3 col-xs-12">Keterangan</label>
 							<div class="col-sm-5 col-xs-12">
-                                <textarea required="required" rows=5 name="keterangan"  class="form-control"></textarea>
+                                <textarea required="required" rows=5 name="keterangan"  class="form-control"><?=$keterangan;?></textarea>
 							</div>
                         </div>
 						<div class="ln_solid"></div>

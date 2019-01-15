@@ -83,6 +83,9 @@
 			<li class="{{ ($segment == 'workbook' ? 'active' : '') }}">
 				<a href="<?=url('backend/workbook');?>"><i class="fa fa-book"></i> Workbook</a>
             </li>
+			<li class="{{ ($segment == 'notes' ? 'active' : '') }}">
+				<a href="<?=url('backend/notes');?>"><i class="fa fa-envelope-o"></i> Notes</a>
+            </li>
             <?php
             if ($userinfo['user_level_id'] < 3):
             ?>

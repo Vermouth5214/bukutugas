@@ -107,6 +107,13 @@
 								<input type="text" id="lastname" name="lastname" class="form-control" value="<?=$lastname;?>">
 							</div>
                         </div>
+						<div class="form-group">
+							<label class="control-label col-sm-3 col-xs-12">Avatar</label>
+							<div class="col-sm-6 col-xs-9">
+								<input type="hidden" name="avatar_id" value=<?=$avatar_id;?> id="id-cover-image_1">
+								@include('backend.elements.change_cover',array('cover' => $cover_1, 'id_count' => 1))	
+							</div>
+						</div>
                         <?php
                             if ($userinfo['user_id'] <> 3):
                         ?>
