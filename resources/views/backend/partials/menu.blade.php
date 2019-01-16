@@ -90,7 +90,7 @@
             if ($userinfo['user_level_id'] < 3):
             ?>
             <li class="{{ ($segment == 'general-report' ? 'active' : '') }}">
-                <a href="<?=url('backend/general-report');?>"><i class="fa fa-bar-chart-o"></i> Gneeral Report</a>
+                <a href="<?=url('backend/general-report');?>"><i class="fa fa-bar-chart-o"></i> General Report</a>
             </li>
             <?php
                 endif;
