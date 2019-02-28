@@ -33,7 +33,8 @@ class ReportController extends Controller {
             $data_workbook = DB::select("SELECT * FROM (
                                             SELECT a.tanggal, a.awal, a.akhir, a.keterangan, a.user_modified, a.requester
                                             FROM workbook a
-                                            WHERE a.active = 1
+                                            WHERE a.active = 1 
+                                            AND  a.user_modified = :user and tanggal >= :tanggal_awal and tanggal <= :tanggal_akhir
                                             union 
                                             SELECT a.tanggal as tanggal, b.istirahat_awal as awal, b.istirahat_akhir as akhir, 'Jam Istirahat' as keterangan, a.user_modified, '' as requester
                                             FROM 
@@ -41,6 +42,7 @@ class ReportController extends Controller {
                                                 left join
                                                 waktu b
                                                 on(dayname(a.tanggal) = b.hari)
+                                            WHERE tanggal >= :tanggal_awal_2 and tanggal <= :tanggal_akhir_2
                                             group by tanggal
                                             union 
                                             SELECT a.tanggal as tanggal, b.jam_masuk as awal, b.jam_masuk as akhir, 'Jam Masuk' as keterangan, a.user_modified, '' as requester
@@ -49,6 +51,7 @@ class ReportController extends Controller {
                                                 left join
                                                 waktu b
                                                 on(dayname(a.tanggal) = b.hari)
+                                            WHERE tanggal >= :tanggal_awal_3 and tanggal <= :tanggal_akhir_3
                                             group by tanggal
                                             union 
                                             SELECT a.tanggal as tanggal, b.jam_pulang as awal, b.jam_pulang as akhir, 'Jam Pulang' as keterangan, a.user_modified, '' as requester
@@ -57,10 +60,10 @@ class ReportController extends Controller {
                                                 left join
                                                 waktu b
                                                 on(dayname(a.tanggal) = b.hari)
+                                            WHERE tanggal >= :tanggal_awal_4 and tanggal <= :tanggal_akhir_4          
                                             group by tanggal
                                         ) u
-                                        where user_modified = :user and tanggal >= :tanggal_awal and tanggal <= :tanggal_akhir                                            
-                                        order by tanggal asc, awal asc, akhir asc", ['tanggal_awal' => date('Y-m-d',strtotime($startDate)), 'tanggal_akhir' => date('Y-m-d',strtotime($endDate)), 'user' => $id_user]);
+                                        order by tanggal asc, awal asc, akhir asc", ['tanggal_awal' => date('Y-m-d',strtotime($startDate)), 'tanggal_akhir' => date('Y-m-d',strtotime($endDate)), 'tanggal_awal_2' => date('Y-m-d',strtotime($startDate)), 'tanggal_akhir_2' => date('Y-m-d',strtotime($endDate)),'tanggal_awal_3' => date('Y-m-d',strtotime($startDate)), 'tanggal_akhir_3' => date('Y-m-d',strtotime($endDate)),'tanggal_awal_4' => date('Y-m-d',strtotime($startDate)), 'tanggal_akhir_4' => date('Y-m-d',strtotime($endDate)), 'user' => $id_user]);
             view()->share('data_user', $data_user);
             view()->share('data_workbook', $data_workbook);
         }
